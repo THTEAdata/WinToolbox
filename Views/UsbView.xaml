@@ -1,0 +1,143 @@
+<UserControl x:Class="WinToolbox.Views.UsbView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:WinToolbox.Views"
+             FontFamily="{StaticResource AppFont}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- 工具条 -->
+        <Grid Grid.Row="0" Margin="0,0,0,14">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBlock x:Name="CountText" Text="正在读取 USB 设备…" Style="{StaticResource Caption}"
+                           VerticalAlignment="Center" />
+                <ProgressBar x:Name="Busy" IsIndeterminate="True" Width="90" Height="3" Margin="12,0,0,0"
+                             VerticalAlignment="Center" Visibility="Collapsed" />
+                <CheckBox x:Name="ExpandAll" Content="全部展开" Margin="18,0,0,0" Style="{StaticResource Chk}"
+                          IsChecked="True" VerticalAlignment="Center" Click="ExpandAll_Click" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="设备管理器" Style="{StaticResource BtnGhost}" Click="OpenDeviceManager_Click" />
+                <Button Content="打开 UsbTreeView" Style="{StaticResource Btn}" Margin="4,0,8,0"
+                        Click="OpenUsbTreeView_Click" />
+                <Button Content="刷新" Style="{StaticResource BtnPrimary}" Click="Refresh_Click" />
+            </StackPanel>
+        </Grid>
+
+        <!-- 拓扑树 -->
+        <Border Grid.Row="1" Style="{StaticResource Card}" Padding="10">
+            <TreeView x:Name="UsbTree" Background="Transparent" BorderThickness="0"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                      ScrollViewer.VerticalScrollBarVisibility="Auto"
+                      ItemTemplate="{DynamicResource UsbNodeTemplate}"
+                      ItemContainerStyle="{DynamicResource UsbTreeItem}" />
+        </Border>
+
+        <TextBlock Grid.Row="2" Margin="2,10,2,0" Style="{StaticResource Caption}" TextWrapping="Wrap"
+                   Text="树形结构由系统设备树的父子关系还原：控制器 → 根集线器 → 外部集线器 → 设备。UsbTreeView 是 Uwe Sieber 的免费工具（uwe-sieber.de），已随工具箱分发。" />
+    </Grid>
+
+    <UserControl.Resources>
+        <!-- 一行节点：名称 + DeviceID + 状态 -->
+        <HierarchicalDataTemplate x:Key="UsbNodeTemplate" DataType="{x:Type local:UsbNode}"
+                                  ItemsSource="{Binding Children}">
+            <Grid Margin="0,1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                    <TextBlock Text="{Binding Name}" FontSize="13" TextTrimming="CharacterEllipsis">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="FontWeight" Value="Normal" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsController}" Value="True">
+                                        <Setter Property="FontWeight" Value="SemiBold" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                    <TextBlock Text="{Binding Detail}" Style="{StaticResource Caption}" Margin="0,2,0,0"
+                               TextTrimming="CharacterEllipsis" />
+                </StackPanel>
+
+                <TextBlock Grid.Column="1" Text="{Binding Status}" Style="{StaticResource Caption}"
+                           VerticalAlignment="Center" Margin="12,0,4,0" />
+            </Grid>
+        </HierarchicalDataTemplate>
+
+        <!-- 树节点样式（自绘展开箭头） -->
+        <Style x:Key="UsbTreeItem" TargetType="TreeViewItem">
+            <Setter Property="IsExpanded" Value="True" />
+            <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+            <Setter Property="FontFamily" Value="{StaticResource AppFont}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TreeViewItem">
+                        <StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="20" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <ToggleButton x:Name="expander" ClickMode="Press" Focusable="False"
+                                              IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}">
+                                    <ToggleButton.Template>
+                                        <ControlTemplate TargetType="ToggleButton">
+                                            <Border Background="Transparent" Width="18" Height="18">
+                                                <Path x:Name="arrow" Data="M 6 4 L 11 9 L 6 14"
+                                                      Stroke="{DynamicResource TextDimBrush}" StrokeThickness="1.5"
+                                                      StrokeStartLineCap="Round" StrokeEndLineCap="Round"
+                                                      HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsChecked" Value="True">
+                                                    <Setter TargetName="arrow" Property="Data"
+                                                            Value="M 4 6 L 9 11 L 14 6" />
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </ToggleButton.Template>
+                                </ToggleButton>
+
+                                <Border x:Name="row" Grid.Column="1" Background="Transparent" CornerRadius="6"
+                                        Padding="4,3">
+                                    <ContentPresenter ContentSource="Header" />
+                                </Border>
+                            </Grid>
+
+                            <ItemsPresenter x:Name="ItemsHost" Margin="20,0,0,0" />
+                        </StackPanel>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsExpanded" Value="False">
+                                <Setter TargetName="ItemsHost" Property="Visibility" Value="Collapsed" />
+                            </Trigger>
+                            <Trigger Property="HasItems" Value="False">
+                                <Setter TargetName="expander" Property="Visibility" Value="Hidden" />
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="row" Property="Background" Value="{DynamicResource AccentDimBrush}" />
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True" />
+                                    <Condition Property="IsSelected" Value="False" />
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="row" Property="Background" Value="{DynamicResource ControlHoverBrush}" />
+                            </MultiTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+</UserControl>

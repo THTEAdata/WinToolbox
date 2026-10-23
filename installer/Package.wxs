@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+
+  <!--
+    WinToolbox 安装包（WiX v5）
+    - 按用户安装（无需管理员）：%LOCALAPPDATA%\Programs\WinToolbox
+    - 安装目录与「添加/删除程序」都登记在 HKCU，卸载干净
+    - 桌面与开始菜单快捷方式
+  -->
+
+  <Package Name="WinToolbox 电脑工具箱"
+           Manufacturer="WinToolbox"
+           Version="$(var.Version).0"
+           UpgradeCode="8B1D8C13-29B7-4C61-8D2E-1E0C5C7A6A11"
+           Scope="perUser"
+           Compressed="yes"
+           InstallerVersion="500"
+           Codepage="936">
+
+    <SummaryInformation Description="WinToolbox - Windows 电脑工具箱" Manufacturer="WinToolbox" />
+
+    <MajorUpgrade DowngradeErrorMessage="已安装更新版本的 WinToolbox，请先卸载旧版本。" />
+    <MediaTemplate EmbedCab="yes" CompressionLevel="high" />
+
+    <!-- 安装位置：%LOCALAPPDATA%\Programs\WinToolbox -->
+    <StandardDirectory Id="LocalAppDataFolder">
+      <Directory Id="ProgramsFolder" Name="Programs">
+        <Directory Id="INSTALLFOLDER" Name="WinToolbox" />
+      </Directory>
+    </StandardDirectory>
+
+    <!-- 开始菜单快捷方式 -->
+    <StandardDirectory Id="ProgramMenuFolder">
+      <Component Id="StartMenuShortcut" Guid="*">
+        <Shortcut Id="StartMenuLink"
+                  Name="WinToolbox 电脑工具箱"
+                  Description="Windows 电脑工具箱：系统信息、清理、进程、服务、网络、USB、电量"
+                  Target="[INSTALLFOLDER]WinToolbox.exe"
+                  WorkingDirectory="INSTALLFOLDER" />
+        <RegistryValue Root="HKCU" Key="Software\WinToolbox\Install"
+                       Name="StartMenu" Type="integer" Value="1" KeyPath="yes" />
+      </Component>
+    </StandardDirectory>
+
+    <!-- 桌面快捷方式 -->
+    <StandardDirectory Id="DesktopFolder">
+      <Component Id="DesktopShortcut" Guid="*">
+        <Shortcut Id="DesktopLink"
+                  Name="WinToolbox 电脑工具箱"
+                  Description="Windows 电脑工具箱"
+                  Target="[INSTALLFOLDER]WinToolbox.exe"
+                  WorkingDirectory="INSTALLFOLDER" />
+        <RegistryValue Root="HKCU" Key="Software\WinToolbox\Install"
+                       Name="Desktop" Type="integer" Value="1" KeyPath="yes" />
+      </Component>
+    </StandardDirectory>
+
+    <Feature Id="MainFeature" Title="WinToolbox" Level="1">
+      <ComponentGroupRef Id="AppFiles" />
+      <ComponentRef Id="StartMenuShortcut" />
+      <ComponentRef Id="DesktopShortcut" />
+    </Feature>
+
+    <!-- 控制面板信息 -->
+    <Property Id="ARPPRODUCTICON" Value="AppIcon" />
+    <Property Id="ARPHELPLINK" Value="https://github.com/yourname/WinToolbox" />
+
+    <Icon Id="AppIcon" SourceFile="assets\app.ico" />
+
+    <!-- 安装完成后可直接启动 -->
+    <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT" Value="立即启动 WinToolbox" />
+    <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOX" Value="1" />
+
+    <UI>
+      <ui:WixUI xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui" Id="WixUI_InstallDir" InstallDirectory="INSTALLFOLDER" />
+    </UI>
+
+    <WixVariable Id="WixUILicenseRtf" Value="installer\LICENSE.rtf" />
+  </Package>
+</Wix>

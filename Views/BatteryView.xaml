@@ -1,0 +1,103 @@
+<UserControl x:Class="WinToolbox.Views.BatteryView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             FontFamily="{StaticResource AppFont}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- 工具条 -->
+        <Grid Grid.Row="0" Margin="0,0,0,14">
+            <TextBlock x:Name="SummaryText" Text="正在读取…" Style="{StaticResource Caption}"
+                       VerticalAlignment="Center" />
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button x:Name="RefreshBtn" Content="刷新电量" Style="{StaticResource BtnPrimary}"
+                        Click="Refresh_Click" />
+            </StackPanel>
+        </Grid>
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <StackPanel>
+                <!-- 系统电池 -->
+                <Border Style="{StaticResource Card}" Padding="20,18" Margin="0,0,0,12">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Border Width="46" Height="46" CornerRadius="12" Background="{DynamicResource AccentDimBrush}"
+                                VerticalAlignment="Center">
+                            <Path Data="M6,10 L22,10 M8,10 L8,7 L20,7 L20,10 M12,3 L16,3 L16,7 L12,7 Z M9,11 L9,21 M15,11 L15,21 M9,21 L15,21"
+                                  Stroke="{DynamicResource AccentBrush}" StrokeThickness="1.8" Width="22" Height="22"
+                                  Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                  StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round" />
+                        </Border>
+
+                        <StackPanel Grid.Column="1" Margin="14,0,14,0" VerticalAlignment="Center">
+                            <TextBlock Text="系统电池" Style="{StaticResource TileTitle}" />
+                            <TextBlock x:Name="SystemBatteryText" Text="—" FontSize="22" FontWeight="SemiBold"
+                                       Margin="0,4,0,0" />
+                            <TextBlock x:Name="SystemBatteryNote" Style="{StaticResource TileSub}" Margin="0,2,0,0" />
+                        </StackPanel>
+
+                        <ProgressBar x:Name="SystemBar" Grid.Column="2" Width="220" Height="10" Maximum="100"
+                                     VerticalAlignment="Center" />
+                    </Grid>
+                </Border>
+
+                <!-- 外设列表 -->
+                <ItemsControl x:Name="DeviceList">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Style="{StaticResource Card}" Padding="20,16" Margin="0,0,0,10">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="240" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding Name}" FontSize="14" FontWeight="SemiBold"
+                                                   TextTrimming="CharacterEllipsis" />
+                                        <TextBlock Style="{StaticResource TileSub}" Margin="0,3,0,0">
+                                            <Run Text="{Binding Vendor, Mode=OneWay}" />
+                                            <Run Text=" · " />
+                                            <Run Text="{Binding Kind, Mode=OneWay}" />
+                                            <Run Text=" · " />
+                                            <Run Text="{Binding Pid, Mode=OneWay, StringFormat=PID {0:X4}}" />
+                                        </TextBlock>
+                                        <TextBlock Text="{Binding Note}" Style="{StaticResource TileSub}"
+                                                   Margin="0,4,0,0" TextWrapping="Wrap" />
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="10,0,10,0">
+                                        <ProgressBar x:Name="LevelBar" Height="8" Maximum="100"
+                                                     Value="{Binding LevelValue, Mode=OneWay}" />
+                                        <TextBlock Text="{Binding LevelText}" Style="{StaticResource TileSub}"
+                                                   Margin="0,5,0,0" HorizontalAlignment="Right" />
+                                    </StackPanel>
+
+                                    <TextBlock Grid.Column="2" Text="{Binding Status}" Style="{StaticResource TileSub}"
+                                               VerticalAlignment="Center" MinWidth="72"
+                                               HorizontalAlignment="Right" />
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <TextBlock x:Name="EmptyText" Style="{StaticResource Caption}" Margin="2,6,0,0"
+                           TextWrapping="Wrap" Visibility="Collapsed" />
+            </StackPanel>
+        </ScrollViewer>
+
+        <TextBlock Grid.Row="2" Style="{StaticResource Caption}" Margin="2,10,2,0" TextWrapping="Wrap"
+                   Text="说明：无线鼠标的电量由厂商私有 HID 协议提供。本页直接向设备发送查询（雷蛇协议已实现），不需要安装驱动；部分接收器在鼠标休眠时会拒绝应答，移动鼠标后点「刷新电量」即可。" />
+    </Grid>
+</UserControl>

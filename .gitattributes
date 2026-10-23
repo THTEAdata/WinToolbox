@@ -1,0 +1,9 @@
+# Normalize line endings so Windows/Linux diffs stay clean
+* text=auto eol=lf
+
+# Binary files
+*.png binary
+*.ico binary
+*.exe binary
+*.zip binary
+*.msi binary

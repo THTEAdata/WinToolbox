@@ -1,0 +1,23 @@
+# 构建产物
+bin/
+obj/
+publish/
+dist/
+
+# 测试工程的构建产物
+tests/**/bin/
+tests/**/obj/
+
+# 临时文件
+*.user
+*.suo
+.vs/
+.idea/
+*.log
+
+# 打包/发布临时目录
+installer/*.wixobj
+installer/*.wixpdb
+
+# 本地不想要的东西
+*.tmp

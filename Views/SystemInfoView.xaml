@@ -1,0 +1,122 @@
+<UserControl x:Class="WinToolbox.Views.SystemInfoView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             FontFamily="{StaticResource AppFont}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- 工具条 -->
+        <Grid Grid.Row="0" Margin="0,0,0,14">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBlock x:Name="RefreshLabel" Text="正在读取系统信息…" Style="{StaticResource Caption}"
+                           VerticalAlignment="Center" />
+                <ProgressBar x:Name="Busy" IsIndeterminate="True" Width="96" Height="3" Margin="12,0,0,0"
+                             VerticalAlignment="Center" Visibility="Collapsed" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="复制全部信息" Style="{StaticResource Btn}" Margin="0,0,8,0" Click="Copy_Click" />
+                <Button Content="刷新" Style="{StaticResource BtnPrimary}" Click="Refresh_Click" />
+            </StackPanel>
+        </Grid>
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="0,0,8,0">
+            <StackPanel x:Name="Root">
+
+                <!-- 设备概览 -->
+                <Border Style="{StaticResource Card}" Margin="0,0,0,12">
+                    <StackPanel>
+                        <DockPanel>
+                            <TextBlock Text="设备概览" Style="{StaticResource H2}" />
+                            <TextBlock x:Name="OsTag" Text="" HorizontalAlignment="Right" FontSize="12"
+                                       Foreground="{DynamicResource TextMuteBrush}" VerticalAlignment="Center" />
+                        </DockPanel>
+                        <Grid Margin="0,12,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="24" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel x:Name="DeviceLeft" />
+                            <StackPanel x:Name="DeviceRight" Grid.Column="2" />
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!-- CPU / 内存 -->
+                <Grid Margin="0,0,0,12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="12" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Border Style="{StaticResource Card}" Grid.Column="0">
+                        <StackPanel>
+                            <TextBlock Text="处理器" Style="{StaticResource H2}" />
+                            <StackPanel x:Name="CpuPanel" Margin="0,10,0,0" />
+                        </StackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource Card}" Grid.Column="2">
+                        <StackPanel>
+                            <DockPanel>
+                                <TextBlock Text="内存" Style="{StaticResource H2}" />
+                                <TextBlock x:Name="MemPercent" Text="" HorizontalAlignment="Right" FontSize="16"
+                                           FontWeight="SemiBold" Foreground="{DynamicResource AccentBrush}"
+                                           VerticalAlignment="Center" />
+                            </DockPanel>
+                            <ProgressBar x:Name="MemBar" Height="5" Margin="0,10,0,12" />
+                            <StackPanel x:Name="MemPanel" />
+                        </StackPanel>
+                    </Border>
+                </Grid>
+
+                <!-- 显卡 / 主板 -->
+                <Grid Margin="0,0,0,12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="12" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Border Style="{StaticResource Card}" Grid.Column="0">
+                        <StackPanel>
+                            <TextBlock Text="显卡" Style="{StaticResource H2}" />
+                            <StackPanel x:Name="GpuPanel" Margin="0,10,0,0" />
+                        </StackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource Card}" Grid.Column="2">
+                        <StackPanel>
+                            <TextBlock Text="主板与 BIOS" Style="{StaticResource H2}" />
+                            <StackPanel x:Name="BoardPanel" Margin="0,10,0,0" />
+                        </StackPanel>
+                    </Border>
+                </Grid>
+
+                <!-- 磁盘 -->
+                <Border Style="{StaticResource Card}" Margin="0,0,0,12">
+                    <StackPanel>
+                        <DockPanel>
+                            <TextBlock Text="磁盘与分区" Style="{StaticResource H2}" />
+                            <TextBlock x:Name="DiskSummary" Text="" HorizontalAlignment="Right" FontSize="12"
+                                       Foreground="{DynamicResource TextMuteBrush}" VerticalAlignment="Center" />
+                        </DockPanel>
+                        <StackPanel x:Name="DiskPanel" Margin="0,10,0,0" />
+                    </StackPanel>
+                </Border>
+
+                <!-- 网络 -->
+                <Border Style="{StaticResource Card}" Margin="0,0,0,4">
+                    <StackPanel>
+                        <TextBlock Text="网络适配器" Style="{StaticResource H2}" />
+                        <StackPanel x:Name="NetPanel" Margin="0,10,0,0" />
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

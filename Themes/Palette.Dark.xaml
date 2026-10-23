@@ -1,0 +1,95 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- 深色（夜间模式） -->
+    <Color x:Key="C.Bg">#FF0B0F17</Color>
+    <Color x:Key="C.Sidebar">#FF0D121C</Color>
+    <Color x:Key="C.Surface">#FF121826</Color>
+    <Color x:Key="C.Surface2">#FF172033</Color>
+    <Color x:Key="C.Surface3">#FF1D2740</Color>
+    <Color x:Key="C.Border">#FF232D40</Color>
+    <Color x:Key="C.BorderLight">#FF2E3B52</Color>
+    <Color x:Key="C.Text">#FFE7ECF5</Color>
+    <Color x:Key="C.TextDim">#FF8B97AC</Color>
+    <Color x:Key="C.TextMute">#FF5E6B82</Color>
+    <Color x:Key="C.Accent">#FF4C8DFF</Color>
+    <Color x:Key="C.AccentHover">#FF6AA0FF</Color>
+    <Color x:Key="C.AccentPressed">#FF3B75E0</Color>
+    <Color x:Key="C.AccentDim">#FF1B3054</Color>
+    <Color x:Key="C.Success">#FF2ED47A</Color>
+    <Color x:Key="C.Danger">#FFFF5C5C</Color>
+    <Color x:Key="C.Warn">#FFFFB020</Color>
+    <Color x:Key="C.SuccessSurface">#FF182B21</Color>
+    <Color x:Key="C.DangerSurface">#FF2A1520</Color>
+    <Color x:Key="C.DangerBorder">#FF5A2A34</Color>
+    <Color x:Key="C.WarnSurface">#FF33280F</Color>
+    <Color x:Key="C.ScrollThumb">#FF3A4A66</Color>
+    <Color x:Key="C.ScrollThumbHover">#FF55688C</Color>
+    <Color x:Key="C.RowAlt">#FF0E1522</Color>
+    <Color x:Key="C.HoverSoft">#FF1A2333</Color>
+    <Color x:Key="C.ControlHover">#FF1D2740</Color>
+    <Color x:Key="C.ControlPressed">#FF22304A</Color>
+    <Color x:Key="C.InputHoverBorder">#FF3A4A66</Color>
+    <Color x:Key="C.Track">#FF1D2740</Color>
+    <Color x:Key="C.MenuHover">#FF1D2740</Color>
+    <Color x:Key="C.ConsoleBg">#FF0A0E16</Color>
+
+    <SolidColorBrush x:Key="BgBrush" Color="{StaticResource C.Bg}" />
+    <SolidColorBrush x:Key="SidebarBrush" Color="{StaticResource C.Sidebar}" />
+    <SolidColorBrush x:Key="SurfaceBrush" Color="{StaticResource C.Surface}" />
+    <SolidColorBrush x:Key="Surface2Brush" Color="{StaticResource C.Surface2}" />
+    <SolidColorBrush x:Key="Surface3Brush" Color="{StaticResource C.Surface3}" />
+    <SolidColorBrush x:Key="BorderBrush" Color="{StaticResource C.Border}" />
+    <SolidColorBrush x:Key="BorderLightBrush" Color="{StaticResource C.BorderLight}" />
+    <SolidColorBrush x:Key="TextBrush" Color="{StaticResource C.Text}" />
+    <SolidColorBrush x:Key="TextDimBrush" Color="{StaticResource C.TextDim}" />
+    <SolidColorBrush x:Key="TextMuteBrush" Color="{StaticResource C.TextMute}" />
+    <SolidColorBrush x:Key="AccentBrush" Color="{StaticResource C.Accent}" />
+    <SolidColorBrush x:Key="AccentHoverBrush" Color="{StaticResource C.AccentHover}" />
+    <SolidColorBrush x:Key="AccentPressedBrush" Color="{StaticResource C.AccentPressed}" />
+    <SolidColorBrush x:Key="AccentDimBrush" Color="{StaticResource C.AccentDim}" />
+    <SolidColorBrush x:Key="SuccessBrush" Color="{StaticResource C.Success}" />
+    <SolidColorBrush x:Key="DangerBrush" Color="{StaticResource C.Danger}" />
+    <SolidColorBrush x:Key="WarnBrush" Color="{StaticResource C.Warn}" />
+    <SolidColorBrush x:Key="SuccessSurfaceBrush" Color="{StaticResource C.SuccessSurface}" />
+    <SolidColorBrush x:Key="DangerSurfaceBrush" Color="{StaticResource C.DangerSurface}" />
+    <SolidColorBrush x:Key="DangerBorderBrush" Color="{StaticResource C.DangerBorder}" />
+    <SolidColorBrush x:Key="WarnSurfaceBrush" Color="{StaticResource C.WarnSurface}" />
+    <SolidColorBrush x:Key="ScrollThumbBrush" Color="{StaticResource C.ScrollThumb}" />
+    <SolidColorBrush x:Key="ScrollThumbHoverBrush" Color="{StaticResource C.ScrollThumbHover}" />
+    <SolidColorBrush x:Key="RowAltBrush" Color="{StaticResource C.RowAlt}" />
+    <SolidColorBrush x:Key="HoverSoftBrush" Color="{StaticResource C.HoverSoft}" />
+    <SolidColorBrush x:Key="ControlHoverBrush" Color="{StaticResource C.ControlHover}" />
+    <SolidColorBrush x:Key="ControlPressedBrush" Color="{StaticResource C.ControlPressed}" />
+    <SolidColorBrush x:Key="InputHoverBorderBrush" Color="{StaticResource C.InputHoverBorder}" />
+    <SolidColorBrush x:Key="TrackBrush" Color="{StaticResource C.Track}" />
+    <SolidColorBrush x:Key="MenuHoverBrush" Color="{StaticResource C.MenuHover}" />
+    <SolidColorBrush x:Key="ConsoleBgBrush" Color="{StaticResource C.ConsoleBg}" />
+
+    <LinearGradientBrush x:Key="BgGradient" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="#FF0C1119" Offset="0" />
+        <GradientStop Color="#FF0E1521" Offset="0.55" />
+        <GradientStop Color="#FF111B29" Offset="1" />
+    </LinearGradientBrush>
+
+    <DropShadowEffect x:Key="CardShadow" BlurRadius="26" ShadowDepth="2" Direction="270"
+                      Opacity="0.45" Color="#FF000000" />
+
+    <!-- 玻璃 / 磁贴 / 流动背景 -->
+    <Color x:Key="C.CardGlass">#B0141C2A</Color>
+    <Color x:Key="C.CardGlassHover">#CC1A2334</Color>
+    <Color x:Key="C.GlassBorder">#26FFFFFF</Color>
+    <Color x:Key="C.GlassHighlight">#1FFFFFFF</Color>
+    <Color x:Key="C.Rail">#990C1119</Color>
+    <Color x:Key="C.Blob1">#663F7DC8</Color>
+    <Color x:Key="C.Blob2">#554A9E8C</Color>
+    <Color x:Key="C.Blob3">#665C4FAA</Color>
+    <SolidColorBrush x:Key="CardGlassBrush" Color="{StaticResource C.CardGlass}" />
+    <SolidColorBrush x:Key="CardGlassHoverBrush" Color="{StaticResource C.CardGlassHover}" />
+    <SolidColorBrush x:Key="GlassBorderBrush" Color="{StaticResource C.GlassBorder}" />
+    <SolidColorBrush x:Key="GlassHighlightBrush" Color="{StaticResource C.GlassHighlight}" />
+    <SolidColorBrush x:Key="RailBrush" Color="{StaticResource C.Rail}" />
+    <SolidColorBrush x:Key="Blob1Brush" Color="{StaticResource C.Blob1}" />
+    <SolidColorBrush x:Key="Blob2Brush" Color="{StaticResource C.Blob2}" />
+    <SolidColorBrush x:Key="Blob3Brush" Color="{StaticResource C.Blob3}" />
+</ResourceDictionary>

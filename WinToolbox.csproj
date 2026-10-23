@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>WinToolbox</AssemblyName>
+    <RootNamespace>WinToolbox</RootNamespace>
+    <Product>WinToolbox 电脑工具箱</Product>
+    <AssemblyTitle>WinToolbox 电脑工具箱</AssemblyTitle>
+    <Company>WinToolbox</Company>
+    <Version>1.0.0</Version>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>assets\app.ico</ApplicationIcon>
+    <SatelliteResourceLanguages>zh-Hans;en</SatelliteResourceLanguages>
+    <DebugType>none</DebugType>
+    <!-- tests 目录是独立的校验工程，不参与主程序编译 -->
+    <DefaultItemExcludes>$(DefaultItemExcludes);tests\**</DefaultItemExcludes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Management" Version="9.0.0" />
+    <!-- 随包的第三方工具（UsbTreeView） -->
+    <None Include="tools\**" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>
