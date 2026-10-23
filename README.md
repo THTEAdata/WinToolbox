@@ -2,7 +2,7 @@
 
 > 一个面向 Windows 10 / 11 的原生桌面工具箱：系统信息、垃圾清理、进程与服务管理、网络诊断、USB 拓扑、外设电量、主题与自动化设置，全部装在一个自包含的程序里，**目标机器不需要安装 .NET 运行时**。
 
-[![Release](https://img.shields.io/badge/release-v1.0.0-blue.svg)](#)
+[![Release](https://img.shields.io/badge/release-v1.0.0-blue.svg)](https://github.com/THTEAdata/WinToolbox/releases/tag/v1.0.0)
 [![Platform](https://img.shields.io/badge/platform-Windows%2010%20%7C%2011%20x64-0078D4.svg)](#)
 [![.NET](https://img.shields.io/badge/.NET-10-512BD4.svg)](#)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
@@ -176,7 +176,7 @@ WinToolbox/
 前置：Windows 10/11 x64、[.NET SDK 10](https://dotnet.microsoft.com/download)。
 
 ```powershell
-git clone https://github.com/<your-name>/WinToolbox.git
+git clone https://github.com/THTEAdata/WinToolbox.git
 cd WinToolbox
 
 # 自包含发布（输出到 publish\，约 133 MB，257 个文件）

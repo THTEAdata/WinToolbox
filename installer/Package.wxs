@@ -63,7 +63,7 @@
 
     <!-- 控制面板信息 -->
     <Property Id="ARPPRODUCTICON" Value="AppIcon" />
-    <Property Id="ARPHELPLINK" Value="https://github.com/yourname/WinToolbox" />
+    <Property Id="ARPHELPLINK" Value="https://github.com/THTEAdata/WinToolbox" />
 
     <Icon Id="AppIcon" SourceFile="assets\app.ico" />
 
